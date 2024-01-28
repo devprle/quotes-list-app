@@ -21,6 +21,7 @@ const QuoteList = () => {
     })
 
     return (<div className='flex flex-col gap-2 max-h-[100dvh]'>
+        <><h1 className='text-center text-white text-6xl font-bold mb-8'>Quotes</h1></>
         {
             isLoading ? <p className='text-white'>Loading...</p> :
                 <>

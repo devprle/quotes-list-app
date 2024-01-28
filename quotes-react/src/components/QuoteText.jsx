@@ -1,5 +1,5 @@
 const QuoteText = ({author, content}) => {
-    console.log(author, content)
+
     return (<div className='p-4 bg-white rounded w-[430px]'>
         <p className='text-sm mb-8'>{content}</p>
         <p className='quote-maker text-xs uppercase text-gray-500 text-right'>{author}</p>
