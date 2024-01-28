@@ -14,8 +14,9 @@ const QuoteScore = ({downvotesCount, upvotesCount, givenVote}) => {
         const totalCount = upvotes + downvotes
         setPercentage(Math.round(upvotes / totalCount * 100))
     }
+
+
     const handleVote = (type) => {
-        console.log('percentage started')
         let upvoteCount = upvotes
         let downvoteCount = downvotes
         if (activeVote === 0) {
