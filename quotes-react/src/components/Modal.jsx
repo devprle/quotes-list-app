@@ -33,10 +33,11 @@ const Modal = ({toggleModal, fetchQuotes, fetchTags}) => {
                     content: quoteData.content, author: quoteData.author, tags: quoteData.tags.split(',')
                 });
 
-                const data = response.data;
+
 
                 fetchQuotes()
                 fetchTags()
+                alert('New quote successfully added!')
                 toggleModal()
             } catch (error) {
                 console.error('Error:', error);
