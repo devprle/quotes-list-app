@@ -15,7 +15,7 @@ const QuoteList = () => {
     const [selectedPage, setSelectedPage] = useState(1)
     const [pageSize, setPageSize] = useState(5)
     const [sortBy, setSortBy] = useState('author')
-    const [sortDirection, setSortDirection] = useState('desc')
+    const [sortDirection, setSortDirection] = useState('asc')
     const [openModal, setOpenModal] = useState(false)
 
     useEffect(() => {
