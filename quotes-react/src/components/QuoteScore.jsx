@@ -14,14 +14,18 @@ const QuoteScore = ({quoteId, downvotesCount, upvotesCount, givenVote, updateQuo
     useEffect(() => {
         setUpvotes(upvotesCount)
         setDownvotes(downvotesCount)
-        setId(id)
+        setId(quoteId)
         setActiveVote(givenVote === 'upvote' ? 1 : givenVote === 'downvote' ? 2 : 0)
         calculatePercentage(upvotesCount, downvotesCount)
-    }, [downvotesCount, upvotesCount, givenVote, id]);
+    }, [downvotesCount, upvotesCount, givenVote, quoteId]);
 
     const calculatePercentage = (upvotes, downvotes) => {
         const totalCount = upvotes + downvotes
-        setPercentage(Math.round(upvotes / totalCount * 100))
+        if (totalCount !== 0) {
+            setPercentage(Math.round(upvotes / totalCount * 100))
+        } else {
+            setPercentage(0)
+        }
     }
 
 
@@ -85,7 +89,7 @@ const QuoteScore = ({quoteId, downvotesCount, upvotesCount, givenVote, updateQuo
             } else {
                 switch (type) {
                     case 1:
-                       alert('Please delete the existing downvote to proceed!')
+                        alert('Please delete the existing downvote to proceed!')
                         break;
                     case 2 :
                         alert('Please delete the existing upvote to proceed!')

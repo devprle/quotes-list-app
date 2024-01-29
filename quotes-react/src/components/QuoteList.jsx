@@ -4,6 +4,7 @@ import Quote from "./Quote.jsx";
 import Pagination from "./Pagination.jsx";
 import Tags from "./Tags.jsx"
 import Sort from "./Sort.jsx"
+import Modal from "./Modal.jsx";
 
 const QuoteList = () => {
 
@@ -12,9 +13,10 @@ const QuoteList = () => {
     const [tags, setTags] = useState([])
     const [selectedTags, setSelectedTags] = useState([])
     const [selectedPage, setSelectedPage] = useState(1)
-    const [pageSize, setPageSize] = useState(10)
+    const [pageSize, setPageSize] = useState(5)
     const [sortBy, setSortBy] = useState('author')
     const [sortDirection, setSortDirection] = useState('desc')
+    const [openModal, setOpenModal] = useState(false)
 
     useEffect(() => {
         fetchQuotes();
@@ -76,7 +78,9 @@ const QuoteList = () => {
         }
 
     }
-
+    const toggleModal = () => {
+        setOpenModal(!openModal)
+    }
     const handleSort = async (event, type) => {
         const sortValue = event.target.value
         if (type === 'sortBy') {
@@ -130,11 +134,13 @@ const QuoteList = () => {
         }
     }
 
-    return (<div className='flex flex-col gap-2 max-h-[100dvh]'>
+    return (<div className='flex flex-col items-center gap-2 w-[500px] m-auto'>
         <h1 className='text-center text-white text-6xl font-bold mb-8'>Quotes</h1>
 
-        <div className='flex gap-4 justify-end items-end'>
-            <button className='px-1 py-2 bg-white rounded hover:bg-green-300 transition-[300]'>Add New Quote</button>
+        <div className='flex gap-4 items-end justify-end w-full'>
+            <button onClick={toggleModal} className='px-1 py-2 bg-white rounded hover:bg-green-300 transition-[300]'>Add
+                New Quote
+            </button>
             <Tags tags={tags} selectedTags={selectedTags} handleTagChange={handleTagChange}/>
             <Sort sortBy={sortBy} sortDirection={sortDirection} handleSort={handleSort}/>
         </div>
@@ -142,6 +148,8 @@ const QuoteList = () => {
         {quotes.map(((quote, i) => <Quote key={i} quote={quote}/>))}
 
         <Pagination selectedPage={selectedPage} totalPages={totalPages} handlePageSelect={handlePageSelect}/>
+        {openModal ? <Modal toggleModal={toggleModal} fetchQuotes={fetchQuotes} fetchTags={fetchTags}/> : ''}
+
     </div>)
 }
 
