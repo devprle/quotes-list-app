@@ -9,11 +9,10 @@ html {
 
 }
 
-.quote-maker {
-
+.author {
     &:before {
         content: '━';
         margin-right: 2px;
     }
-
 }
+

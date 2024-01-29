@@ -1,14 +1,23 @@
 import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCaretUp, faCaretDown} from '@fortawesome/free-solid-svg-icons'
+import axios from "axios";
 
-const QuoteScore = ({downvotesCount, upvotesCount, givenVote}) => {
+const QuoteScore = ({quoteId, downvotesCount, upvotesCount, givenVote, updateQuote}) => {
 
+    const [id, setId] = useState(quoteId)
     const [percentage, setPercentage] = useState(0)
     const [activeVote, setActiveVote] = useState(givenVote === 'upvote' ? 1 : givenVote === 'downvote' ? 2 : 0)
     const [upvotes, setUpvotes] = useState(upvotesCount)
     const [downvotes, setDownvotes] = useState(downvotesCount)
 
+    useEffect(() => {
+        setUpvotes(upvotesCount)
+        setDownvotes(downvotesCount)
+        setId(id)
+        setActiveVote(givenVote === 'upvote' ? 1 : givenVote === 'downvote' ? 2 : 0)
+        calculatePercentage(upvotesCount, downvotesCount)
+    }, [downvotesCount, upvotesCount, givenVote, id]);
 
     const calculatePercentage = (upvotes, downvotes) => {
         const totalCount = upvotes + downvotes
@@ -16,49 +25,70 @@ const QuoteScore = ({downvotesCount, upvotesCount, givenVote}) => {
     }
 
 
-    const handleVote = (type) => {
+    const handleVote = async (type) => {
         let upvoteCount = upvotes
         let downvoteCount = downvotes
         if (activeVote === 0) {
             setActiveVote(type)
             switch (type) {
                 case  1 :
-                    upvoteCount++
+                    try {
+
+                        const response = await axios.post(`http://localhost:3000/quotes/${id}/upvote`);
+
+                        const data = response.data;
+                        updateQuote(data)
+                    } catch (error) {
+                        alert(error);
+                    }
                     break;
                 case 2  :
-                    downvoteCount++
+                    try {
+
+                        const response = await axios.post(`http://localhost:3000/quotes/${id}/downvote`);
+                        const data = response.data;
+
+                        updateQuote(data)
+
+                    } catch (error) {
+                        alert(error);
+                    }
             }
         } else {
-            if (type !== activeVote) {
+            if (type === activeVote) {
                 setActiveVote(type)
                 switch (type) {
                     case  1 :
+                        try {
 
-                        if (downvotes !== 0) {
-                            downvoteCount--
+                            const response = await axios.delete(`http://localhost:3000/quotes/${id}/upvote`);
+
+                            const data = response.data;
+                            updateQuote(data)
+                        } catch (error) {
+                            alert(error);
                         }
-                        upvoteCount++
                         break;
                     case 2  :
-                        if (upvotes !== 0) {
-                            upvoteCount--
+                        try {
+
+                            const response = await axios.delete(`http://localhost:3000/quotes/${id}/downvote`);
+
+                            const data = response.data;
+                            updateQuote(data)
+
+                        } catch (error) {
+                            alert(error);
                         }
-                        downvoteCount++
                         break;
                 }
             } else {
                 switch (type) {
                     case 1:
-                        if (upvotes !== 0) {
-                            upvoteCount--
-                        }
-                        setActiveVote(0)
+                       alert('Please delete the existing downvote to proceed!')
                         break;
                     case 2 :
-                        if (downvotes !== 0) {
-                            downvoteCount--
-                        }
-                        setActiveVote(0)
+                        alert('Please delete the existing upvote to proceed!')
                         break;
                 }
             }

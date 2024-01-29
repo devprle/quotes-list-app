@@ -9,10 +9,13 @@ const Quote = ({quote}) => {
         setSingleQuote(quote)
     }, [quote]);
 
-    const {author, content, downvotesCount, givenVote, id, tags, upvotesCount, userId} = singleQuote
+    const updateQuote = (updatedQuote) => {
+        setSingleQuote(updatedQuote)
+    }
     return (<div className='flex gap-6 items-center'>
-        <QuoteScore downvotesCount={downvotesCount} upvotesCount={upvotesCount} givenVote={givenVote}/>
-        <QuoteText author={author} content={content}/>
+        <QuoteScore quoteId={singleQuote.id} downvotesCount={singleQuote.downvotesCount}
+                    upvotesCount={singleQuote.upvotesCount} givenVote={singleQuote.givenVote} updateQuote={updateQuote}/>
+        <QuoteText author={singleQuote.author} content={singleQuote.content}/>
     </div>)
 }
 
