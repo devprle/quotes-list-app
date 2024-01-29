@@ -8,10 +8,12 @@ html {
     font-family: 'Roboto', sans-serif;
 
 }
+
 #root {
     min-height: 100dvh;
     position: relative;
 }
+
 .author {
     &:before {
         content: '━';

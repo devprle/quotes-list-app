@@ -16,12 +16,13 @@ const Sort = ({sortBy, sortDirection, handleSort}) => {
     return (<div className='flex flex-col gap-2 '>
         <p className='text-white mb-2'>Sort Quotes</p>
 
-        <select name="sortBy" id="sortBy" value={selectedSort}  onChange={(event) => handleSort(event, "sortBy")}>
+        <select name="sortBy" id="sortBy" value={selectedSort} onChange={(event) => handleSort(event, "sortBy")}>
             <option value="createdAt">Created At</option>
-            <option value="author" >Author</option>
-            <option value="upvotesCount" >Upvotes Count</option>
+            <option value="author">Author</option>
+            <option value="upvotesCount">Upvotes Count</option>
         </select>
-        <select name="sortDirection" value={selectedDirection} id="sortDirection" onChange={(event) => handleSort(event, "sortDirection")}>
+        <select name="sortDirection" value={selectedDirection} id="sortDirection"
+                onChange={(event) => handleSort(event, "sortDirection")}>
             <option value="asc">ASC</option>
             <option value="desc">DESC</option>
         </select>

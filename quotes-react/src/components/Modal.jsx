@@ -12,16 +12,16 @@ const Modal = ({toggleModal, fetchQuotes, fetchTags}) => {
 
     const updateContent = (event, type) => {
         const value = event.target.value
-        console.log('value: ', value)
+
         const newQuoteData = {...quoteData}
         newQuoteData[type] = value
-        console.log('newQuoteData: ', newQuoteData)
+
         setQuoteData(newQuoteData)
 
     }
 
     const handleAddQuote = async () => {
-        console.log('handle add quote started')
+
 
         if (quoteData.content === '' || quoteData.author === '' || quoteData.tags === '') {
             alert('Please populate fields!')
@@ -34,7 +34,7 @@ const Modal = ({toggleModal, fetchQuotes, fetchTags}) => {
                 });
 
                 const data = response.data;
-                console.log('addQuote data: ', data)
+
                 fetchQuotes()
                 fetchTags()
                 toggleModal()
